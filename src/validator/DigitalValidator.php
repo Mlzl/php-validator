@@ -13,6 +13,6 @@ class DigitalValidator extends Validator
 {
     public function validator(Validation $validation, $field)
     {
-
+        //
     }
 }
