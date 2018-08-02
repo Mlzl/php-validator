@@ -34,6 +34,11 @@ class JaniceMessage
         $this->code = $code;
     }
 
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
     public function __toString()
     {
         return "[code:{$this->code}][message:{$this->message}]";

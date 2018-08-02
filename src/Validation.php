@@ -2,6 +2,7 @@
 
 namespace Janice;
 
+use function DeepCopy\deep_copy;
 use Janice\Exception\JException;
 use Janice\Library\JaniceMessage;
 use Janice\Library\MessageBox;
@@ -46,7 +47,7 @@ class Validation
         if (!is_string($fields) && !is_array($fields)) {
             throw new JException('the field type must string or array');
         }
-        $this->vQueue->push([$fields, $validator]);
+        $this->vQueue->unshift([$fields, deep_copy($validator)]);
     }
 
     public function validate($data)
@@ -78,7 +79,7 @@ class Validation
 
     public function getValue($field)
     {
-        return isset($this->data[$field]) ? $this->vData[$field] : null;
+        return isset($this->vData[$field]) ? $this->vData[$field] : null;
     }
 
     /**

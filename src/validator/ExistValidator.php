@@ -6,6 +6,7 @@ use Janice\Library\JaniceMessage;
 use Janice\Validation;
 
 /**
+ * 验证值是否存在
  * @author ambi
  * @date 2018/8/1
  */
