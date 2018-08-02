@@ -1,0 +1,22 @@
+{
+    "name": "ambi/php-validator",
+    "description": "a lib for php validator",
+    "type": "library",
+    "authors": [
+        {
+            "name": "ambi",
+            "email": "liuzhilang@3k.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit":"^5"
+    },
+    "require": {
+        "ambi/php-validator":"*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Janice\\": "src/"
+        }
+    }
+}
