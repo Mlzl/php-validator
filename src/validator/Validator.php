@@ -10,7 +10,7 @@ namespace Janice\Validator;
 namespace Janice\Validator;
 
 
-use Janice\Exception\DislikeException;
+use Janice\Exception\LoveException;
 use Janice\Validation;
 
 abstract class Validator
@@ -37,13 +37,13 @@ abstract class Validator
     /**
      * @param $field
      * @return mixed
-     * @throws DislikeException
+     * @throws LoveException
      */
     public function getMessage($field)
     {
         $message = isset($this->options['message']) ? $this->options['message'] : $this->defaultMessage;
         if (!is_string($message)) {
-            throw new DislikeException('the type of message in options must be string');
+            throw new LoveException('the type of message in options must be string');
         }
         return str_replace(':field', $field, $message);
     }
@@ -56,9 +56,18 @@ abstract class Validator
         return isset($this->options['code']) ? $this->options['code'] : $this->defaultCode;
     }
 
-    public function getOption($field)
+    public function getOption($field, $default = null)
     {
-        return isset($this->options[$field]) ? $this->options[$field] : null;
+        return isset($this->options[$field]) ? $this->options[$field] : $default;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAllowEmpty()
+    {
+        $allowEmpty = $this->getOption('allowEmpty', true);
+        return boolval($allowEmpty);
     }
 
     public abstract function validator(Validation $validation, $field);

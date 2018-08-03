@@ -7,7 +7,7 @@
 namespace Janice\Validator;
 
 
-use Janice\Exception\DislikeException;
+use Janice\Exception\LoveException;
 use Janice\Library\JaniceMessage;
 use Janice\Validation;
 
@@ -15,26 +15,27 @@ class File extends Validator
 {
     public function validator(Validation $validation, $field)
     {
-        $allowEmpty = $this->getOption('allowEmpty');
         $value = $validation->getValue($field);
         $multiFile = $this->diverseArray($value);
         $code = $this->getCode();
         $message = $this->getMessage($field);
-
+        $success = true;
         foreach ($multiFile as $fileInfo) {
-            if ($allowEmpty && !$fileInfo) {
+            if ($this->isAllowEmpty() && !$fileInfo) {
                 continue;
             }
             if (!is_array($fileInfo)) {
-                return new JaniceMessage($code, $message);
+                $validation->appendMessage(new JaniceMessage($code, $message));
+                $success = false;
             }
-            $this->validateError($fileInfo);//验证错误码
-            $this->validateMaxSize($fileInfo);//验证文件大小
-            $this->validateType($fileInfo);//验证文件类型
+            !$this->validateError($validation, $fileInfo) && $success = false;//验证错误码
+            !$this->validateMaxSize($validation, $fileInfo) && $success = false;//验证文件大小
+            !$this->validateType($validation, $fileInfo) && $success = false;//验证文件类型
         }
+        return $success;
     }
 
-    public function validateType($value)
+    public function validateType(Validation $validation, $value)
     {
         $allowTypeList = $this->getOption('allowType');
         if (empty($allowTypeList)) {
@@ -50,10 +51,11 @@ class File extends Validator
         $message = $this->getOption('messageType');
         !$message && $message = ':fileType 不在允许的文件类型列表内';
         $message = str_replace(':fileType', $fileType, $message);
-        throw new DislikeException($message);
+        $validation->appendMessage(new JaniceMessage($this->getCode(), $message));
+        return false;
     }
 
-    private function validateMaxSize($value)
+    private function validateMaxSize(Validation $validation, $value)
     {
         $rawMaxSize = $this->getOption('maxSize');
         if (!$rawMaxSize) {
@@ -73,7 +75,7 @@ class File extends Validator
                 $maxSize = $maxSize * 1024 * 1024;
                 break;
             default:
-                throw new DislikeException('maxSize格式为[数字b|kb|k|mb|m]，字母单位不区分大小写');
+                throw new LoveException('maxSize格式为[数字b|kb|k|mb|m]，字母单位不区分大小写');
         }
         $fileSize = isset($value['size']) ? $value['size'] : 0;
         if ($fileSize <= $maxSize) {
@@ -82,11 +84,11 @@ class File extends Validator
         $message = $this->getOption('messageSize');
         !$message && $message = '文件最大尺寸限制为 :maxSize';
         $message = str_replace(':maxSize', $rawMaxSize, $message);
-
-        throw new DislikeException($message, $this->getCode());
+        $validation->appendMessage(new JaniceMessage($this->getCode(), $message));
+        return false;
     }
 
-    private function validateError($value)
+    private function validateError(Validation $validation, $value)
     {
         if (!isset($value['error'])) {
             return true;
@@ -121,8 +123,9 @@ class File extends Validator
                 $message = "未知错误【{$value['error']}】";
         }
         if ($code) {
-            throw new DislikeException($message, $code);
+            $validation->appendMessage(new JaniceMessage($this->getCode(), $message));
         }
+        return false;
     }
 
     private function diverseArray($vector)

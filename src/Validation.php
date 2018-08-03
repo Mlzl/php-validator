@@ -2,7 +2,7 @@
 
 namespace Janice;
 
-use Janice\Exception\DislikeException;
+use Janice\Exception\LoveException;
 use Janice\Library\JaniceMessage;
 use Janice\Library\MessageBox;
 use Janice\Validator\Validator;
@@ -37,15 +37,15 @@ class Validation
     /**
      * @param string|array $fields
      * @param $validator
-     * @throws DislikeException
+     * @throws LoveException
      */
     public function add($fields, $validator)
     {
         if (!($validator instanceof Validator)) {
-            throw new DislikeException('the validator must extends Validation');
+            throw new LoveException('the validator must extends Validation');
         }
         if (!is_string($fields) && !is_array($fields)) {
-            throw new DislikeException('the field type must string or array');
+            throw new LoveException('the field type must string or array');
         }
         $this->vQueue->unshift([$fields, deep_copy($validator)]);
     }
@@ -62,11 +62,8 @@ class Validation
                 $fields = [$fields];
             }
             foreach ($fields as $field) {
-                try {
-                    $validator->validator($this, $field);
-                } catch (DislikeException $dislikeException) {
-                    $message = new JaniceMessage($dislikeException->getCode(), $dislikeException->getMessage());
-                    $this->vMessageBox->push($message);
+                $success = $validator->validator($this, $field);
+                if (!$success) {
                     if ($validator->isFinish()) {//停止检测
                         break;
                     }
@@ -86,5 +83,15 @@ class Validation
     public function getMessages()
     {
         return $this->vMessageBox;
+    }
+
+    public function appendMessage(JaniceMessage $message)
+    {
+        $this->vMessageBox->push($message);
+    }
+
+    public function getData()
+    {
+        return $this->vData;
     }
 }

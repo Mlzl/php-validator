@@ -2,7 +2,8 @@
 
 namespace Janice\Validator;
 
-use Janice\Exception\DislikeException;
+use Janice\Exception\LoveException;
+use Janice\Library\JaniceMessage;
 use Janice\Validation;
 
 /**
@@ -18,12 +19,12 @@ class NotEmpty extends Validator
      * @param Validation $validation
      * @param $field
      * @return bool
-     * @throws DislikeException
+     * @throws LoveException
      */
     public function validator(Validation $validation, $field)
     {
         $value = $validation->getValue($field);
-        if ($value !== null || $value !== '') {
+        if ($value !== null && $value !== '') {
             return true;
         }
 
@@ -31,7 +32,8 @@ class NotEmpty extends Validator
 
         $message = $this->getMessage($field);
 
-        throw new DislikeException($message, $code);
+        $validation->appendMessage(new JaniceMessage($code, $message));
+        return false;
     }
 
 }

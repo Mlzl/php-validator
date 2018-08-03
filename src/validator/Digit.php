@@ -8,7 +8,7 @@
 namespace Janice\Validator;
 
 
-use Janice\Exception\DislikeException;
+use Janice\Library\JaniceMessage;
 use Janice\Validation;
 
 class Digit extends Validator
@@ -17,9 +17,8 @@ class Digit extends Validator
 
     public function validator(Validation $validation, $field)
     {
-        $allowEmpty = $this->getOption('allowEmpty');
         $value = $validation->getValue($field);
-        if ($allowEmpty && ($value === '' || $value === null)) {
+        if ($this->isAllowEmpty() && ($value === '' || $value === null)) {
             return true;
         }
         if (is_numeric($value)) {
@@ -27,6 +26,6 @@ class Digit extends Validator
         }
         $code = $this->getCode();
         $message = $this->getMessage($field);
-        throw new DislikeException($message, $code);
+        $validation->appendMessage(new JaniceMessage($code, $message));
     }
 }

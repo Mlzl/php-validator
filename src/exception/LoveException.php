@@ -8,7 +8,7 @@ use Throwable;
  * @author ambi
  * @date 2018/8/1
  */
-class DislikeException extends \Exception
+class LoveException extends \Exception
 {
     public function __construct($message = "", $code = 520, Throwable $previous = null)
     {
