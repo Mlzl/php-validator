@@ -1,6 +1,5 @@
-# php-validator 
+# a validator for php form
 ## 用来验证数据的插件
-*********
 ## 目前拥有的验证器
 * Digit 
 > 验证数据是否属于数字。包括正负数、浮点数等。
