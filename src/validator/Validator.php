@@ -10,14 +10,14 @@ namespace Janice\Validator;
 namespace Janice\Validator;
 
 
-use Janice\Exception\JException;
+use Janice\Exception\DislikeException;
 use Janice\Validation;
 
 abstract class Validator
 {
     protected $options = [];
 
-    protected $defaultCode = 0;
+    protected $defaultCode = 520;
     protected $defaultMessage = ':field Unknown Error!';
 
     public function __construct(array $options)
@@ -31,19 +31,19 @@ abstract class Validator
      */
     public function isFinish()
     {
-        return isset($this->options['finish']) ? boolval($this->options['finish']) : false;
+        return isset($this->options['interruptOnFail']) ? boolval($this->options['interruptOnFail']) : false;
     }
 
     /**
      * @param $field
      * @return mixed
-     * @throws JException
+     * @throws DislikeException
      */
     public function getMessage($field)
     {
         $message = isset($this->options['message']) ? $this->options['message'] : $this->defaultMessage;
         if (!is_string($message)) {
-            throw new JException('the type of message in options must be string');
+            throw new DislikeException('the type of message in options must be string');
         }
         return str_replace(':field', $field, $message);
     }
@@ -56,6 +56,10 @@ abstract class Validator
         return isset($this->options['code']) ? $this->options['code'] : $this->defaultCode;
     }
 
+    public function getOption($field)
+    {
+        return isset($this->options[$field]) ? $this->options[$field] : null;
+    }
 
     public abstract function validator(Validation $validation, $field);
 }

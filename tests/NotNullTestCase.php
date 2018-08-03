@@ -9,7 +9,7 @@ class NotNullTestCase extends \PHPUnit\Framework\TestCase
     public function testNotNull()
     {
         $validation = new \Janice\Validation();
-        $validation->add('key', new \Janice\Validator\ExistValidator(
+        $validation->add('key', new \Janice\Validator\NotEmpty(
             [
                 'message' => ':field 不存在',
                 'code' => 119
@@ -28,7 +28,7 @@ class NotNullTestCase extends \PHPUnit\Framework\TestCase
     public function testDigital()
     {
         $validation = new \Janice\Validation();
-        $digitalValidator = new \Janice\Validator\DigitalValidator(
+        $digitalValidator = new \Janice\Validator\Digit(
             [
                 'message'=>':field 必须是数字',
                 'code'=>200
@@ -55,7 +55,7 @@ class NotNullTestCase extends \PHPUnit\Framework\TestCase
     public function testNumber()
     {
         $validation = new \Janice\Validation();
-        $numberValidator = new \Janice\Validator\NumberValidator(
+        $numberValidator = new \Janice\Validator\Integer(
             [
                 'message'=>':field 必须是整数',
                 'code'=>201

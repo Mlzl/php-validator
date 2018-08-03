@@ -8,22 +8,26 @@
 namespace Janice\Validator;
 
 
-use Janice\Library\JaniceMessage;
+use Janice\Exception\DislikeException;
 use Janice\Validation;
 
-class NumberValidator extends Validator
+class Integer extends Validator
 {
-    protected $defaultCode = 10002;
     protected $defaultMessage = ':field must be integer';
 
     public function validator(Validation $validation, $field)
     {
         $value = $validation->getValue($field);
+        $allowEmpty = $this->getOption('allowEmpty');
+        if ($allowEmpty && ($value === '' || $value === null)) {
+            return true;
+        }
         if (is_integer($value)) {
             return true;
         }
         $code = $this->getCode();
         $message = $this->getMessage($field);
-        return new JaniceMessage($code, $message);
+
+        throw new DislikeException($message, $code);
     }
 }

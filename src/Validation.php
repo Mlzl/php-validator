@@ -2,11 +2,11 @@
 
 namespace Janice;
 
-use function DeepCopy\deep_copy;
-use Janice\Exception\JException;
+use Janice\Exception\DislikeException;
 use Janice\Library\JaniceMessage;
 use Janice\Library\MessageBox;
 use Janice\Validator\Validator;
+use function DeepCopy\deep_copy;
 
 /**
  * @author ambi
@@ -37,15 +37,15 @@ class Validation
     /**
      * @param string|array $fields
      * @param $validator
-     * @throws JException
+     * @throws DislikeException
      */
     public function add($fields, $validator)
     {
         if (!($validator instanceof Validator)) {
-            throw new JException('the validator must extends Validation');
+            throw new DislikeException('the validator must extends Validation');
         }
         if (!is_string($fields) && !is_array($fields)) {
-            throw new JException('the field type must string or array');
+            throw new DislikeException('the field type must string or array');
         }
         $this->vQueue->unshift([$fields, deep_copy($validator)]);
     }
@@ -62,19 +62,17 @@ class Validation
                 $fields = [$fields];
             }
             foreach ($fields as $field) {
-                $result = $validator->validator($this, $field);
-                if ($result !== true) {
-                    if (!($result instanceof JaniceMessage)) {
-                        $result = new JaniceMessage($validator->getMessage($field), $validator->getCode());
-                    }
-                    $this->vMessageBox->push($result);
-                    if ($validator->isFinish()) {
-                        return true;
+                try {
+                    $validator->validator($this, $field);
+                } catch (DislikeException $dislikeException) {
+                    $message = new JaniceMessage($dislikeException->getCode(), $dislikeException->getMessage());
+                    $this->vMessageBox->push($message);
+                    if ($validator->isFinish()) {//停止检测
+                        break;
                     }
                 }
             }
         }
-
     }
 
     public function getValue($field)
