@@ -12,7 +12,7 @@
         "phpunit/phpunit":"^5"
     },
     "require": {
-        "ambi/php-validator":"*"
+        "ambi/validator":"*"
     },
     "autoload": {
         "psr-4": {

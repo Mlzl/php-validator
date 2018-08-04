@@ -147,4 +147,16 @@ class NotNullTestCase extends \PHPUnit\Framework\TestCase
         $validation->validate(['fieldName' => 'janice']);
         $this->assertTrue(count($validation->getMessages()) == 0);
     }
+
+    public function testBetween()
+    {
+        $data['fileName'] = 1000;
+        $validation = new \Janice\Validation();
+        $validation->add('fileName', new \Janice\Validator\Between([
+            'min'=>1,
+            'max'=>100,
+        ]));
+        $validation->validate($data);
+        $this->assertTrue(count($validation->getMessages()) == 1);
+    }
 }
