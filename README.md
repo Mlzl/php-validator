@@ -62,12 +62,14 @@
 
 *ExclusionIn
 >值的枚举限定
+
 > 特殊选项：[下面所示]
 >>    * domain [array]
 >>> 目标值不能够出现在此数组内    
 
 *InclusionIn
 >值的枚举限定
+
 > 特殊选项：[下面所示]
 >>    * domain [array]
 >>> 目标值必须出现在此数组内  
