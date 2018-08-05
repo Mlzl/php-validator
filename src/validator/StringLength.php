@@ -30,8 +30,8 @@ class StringLength extends Validator
 
         $messageMax = $this->getOption('messageMax');
         $messageMin = $this->getOption('messageMin');
-        !$messageMax && $messageMax = ":field 最大长度为{$max}";
-        !$messageMin && $messageMin = ":field 最小长度为{$min}";
+        !$messageMax || !is_string($messageMax) && $messageMax = ":field 最大长度为{$max}";
+        !$messageMin || !is_string($messageMin) && $messageMin = ":field 最小长度为{$min}";
         $messageMax = str_replace(':field', $field, $messageMax);
         $messageMin = str_replace(':field', $field, $messageMin);
         $valueStr = mb_strlen($value);

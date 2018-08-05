@@ -49,7 +49,7 @@ class File extends Validator
             return true;
         }
         $message = $this->getOption('messageType');
-        !$message && $message = ':fileType 不在允许的文件类型列表内';
+        !$message || !is_string($message) && $message = ':fileType 不在允许的文件类型列表内';
         $message = str_replace(':fileType', $fileType, $message);
         $validation->appendMessage(new JaniceMessage($this->getCode(), $message));
         return false;
@@ -82,7 +82,7 @@ class File extends Validator
             return true;
         }
         $message = $this->getOption('messageSize');
-        !$message && $message = '文件最大尺寸限制为 :maxSize';
+        !$message || !is_string($message) && $message = '文件最大尺寸限制为 :maxSize';
         $message = str_replace(':maxSize', $rawMaxSize, $message);
         $validation->appendMessage(new JaniceMessage($this->getCode(), $message));
         return false;

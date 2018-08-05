@@ -174,4 +174,28 @@ class NotNullTestCase extends \PHPUnit\Framework\TestCase
 
         $this->assertTrue(count($validation->getMessages()) == 1);
     }
+
+    public function testExclusionIn()
+    {
+        $data['fileName'] = 'd';
+        $validation = new \Janice\Validation();
+        $validation->add('fileName', new \Janice\Validator\ExclusionIn([
+            'domain'=>['d', 'a'],
+            'message'=>':field字段值 不能够是domain内的任何一个值'
+        ]));
+        $validation->validate($data);
+        $this->assertTrue(count($validation->getMessages()) == 1);
+    }
+
+    public function testInclusionIn()
+    {
+        $data['fileName'] = 'c';
+        $validation = new \Janice\Validation();
+        $validation->add('fileName', new \Janice\Validator\InclusionIn([
+            'domain'=>['d', 'a'],
+            'message'=>':field字段值 必须是domain内的任何一个值'
+        ]));
+        $validation->validate($data);
+        $this->assertTrue(count($validation->getMessages()) == 1);
+    }
 }
