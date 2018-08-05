@@ -159,4 +159,19 @@ class NotNullTestCase extends \PHPUnit\Framework\TestCase
         $validation->validate($data);
         $this->assertTrue(count($validation->getMessages()) == 1);
     }
+
+    public function testStringLength()
+    {
+        $data['fileName'] = 'd';
+        $validation = new \Janice\Validation();
+        $validation->add('fileName', new \Janice\Validator\StringLength([
+            'min'=>2,
+            'max'=>2,
+            'messageMin'=>'min message',
+            'messageMax'=>'max message',
+        ]));
+        $validation->validate($data);
+
+        $this->assertTrue(count($validation->getMessages()) == 1);
+    }
 }

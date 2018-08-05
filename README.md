@@ -51,6 +51,23 @@
     *max
 >> 最大值【数值】
 
+*StringLength
+>字符串长度判定
+>>特殊选项：[下面所示]
+
+    *min
+>> 最小值【数值】
+    
+    *messageMin
+>> 不满足最小值时的提示语
+
+    *max
+>> 最大值【数值】
+
+    *messageMax
+>> 不满足最大值时的提示语
+
+
 ## 选项解释 
 > ps:带有 [*] 号的都是通用选项
 * allowEmpty
@@ -63,8 +80,6 @@
 > 失败码
 
 ## TO DO LIST
-* Between
-* StringLength
 * InclusionIn
 * ExclusionIn
 * https://docs.phalconphp.com/en/3.3/validation
