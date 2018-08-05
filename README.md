@@ -27,70 +27,62 @@
     
 * Callback
 > 用户自定义回调函数
->> 特殊选项: [下面所示]
-    
->    * callback [callable]
->> 回调函数。返回false代表检验失败，其余代表正常
+
+> 特殊选项: [下面所示]
+>>    * callback [callable]
+>>> 回调函数。返回false代表检验失败，其余代表正常
 
 * Regex
 > 正则表达式验证函数
->> 特殊选项: [下面所示]
-    
->    * pattern [string]
->> 标准正则表达式
+
+> 特殊选项: [下面所示]    
+>>    * pattern [string]
+>>> 标准正则表达式
 
 *Between
 >区域值判定，判定对象为数值
->> 特殊选项：[下面所示]
-    
->    *min [int]
->> 最小值【数值】
 
->    *max [int]
->> 最大值【数值】
+> 特殊选项：[下面所示] 
+>>    * min [int]
+>>> 最小值【数值】
+>>    * max [int]
+>>> 最大值【数值】
 
 *StringLength
 >字符串长度判定
->>特殊选项：[下面所示]
-
->    *min [int]
->> 最小值【数值】
-    
->    *messageMin [string]
->> 不满足最小值时的提示语
-
->    *max [int]
->> 最大值
-
->    *messageMax [string]
->> 不满足最大值时的提示语
+>特殊选项：[下面所示]
+>>    * min [int]
+>>> 最小值【数值】
+>>    * messageMin [string]
+>>> 不满足最小值时的提示语
+>>    * max [int]
+>>> 最大值
+>>    * messageMax [string]
+>>> 不满足最大值时的提示语
 
 *ExclusionIn
 >值的枚举限定
->> 特殊选项：[下面所示]
-
->    *domain [array]
->> 目标值不能够出现在此数组内    
+> 特殊选项：[下面所示]
+>>    * domain [array]
+>>> 目标值不能够出现在此数组内    
 
 *InclusionIn
 >值的枚举限定
->> 特殊选项：[下面所示]
-
->    *domain [array]
->> 目标值必须出现在此数组内  
+> 特殊选项：[下面所示]
+>>    * domain [array]
+>>> 目标值必须出现在此数组内  
 
 ## 选项解释 
 > ps:带有 [*] 号的都是通用选项
-* allowEmpty
-> 允许一个值是空字符串或者为null，默认的验证器都是允许为空，NotEmpty验证器没有这个属性
-* interruptOnFail [*]
-> 当某个规则失败时，中断下面的校验
-* message [*]
-> 失败提示符。可用 :field 代表对应的键
-* code [*]
-> 失败码
 
-## TO DO LIST
-* InclusionIn
-* ExclusionIn
-* https://docs.phalconphp.com/en/3.3/validation
+>   * allowEmpty
+>> 允许一个值是空字符串或者为null，默认的验证器都是允许为空，NotEmpty验证器没有这个属性
+
+>   * interruptOnFail [*]
+>> 当某个规则失败时，中断下面的校验
+
+>   * message [*]
+>> 失败提示符。可用 :field 代表对应的键
+
+>   * code [*]
+>> 失败码
