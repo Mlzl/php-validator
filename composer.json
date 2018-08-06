@@ -12,7 +12,8 @@
         "phpunit/phpunit":"^5"
     },
     "require": {
-        "ambi/validator":"*"
+        "ambi/validator":"*",
+        "php":">=5.5"
     },
     "autoload": {
         "psr-4": {
