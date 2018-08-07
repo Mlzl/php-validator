@@ -1,5 +1,4 @@
 {
-    "name": "ambi/validator",
     "description": "a lib for php validator",
     "type": "library",
     "license":"MIT",
