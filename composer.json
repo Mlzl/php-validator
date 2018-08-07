@@ -12,12 +12,15 @@
     "require-dev": {
         "phpunit/phpunit":"^5"
     },
-    "require": {
-        "php":">=5.5.0"
-    },
     "autoload": {
         "psr-4": {
             "Janice\\": "src/"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Mlzl/validator"
+        }
+    ]
 }
