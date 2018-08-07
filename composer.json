@@ -1,5 +1,5 @@
 {
-    "name": "mlzl/validator-nice",
+    "name": "mlzl/myvalidator",
     "description": "a lib for php validator",
     "type": "library",
     "license":"MIT",
