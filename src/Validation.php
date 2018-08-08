@@ -15,7 +15,7 @@ use function DeepCopy\deep_copy;
 class Validation
 {
     /**
-     * @var \SplStack
+     * @var array
      */
     protected $vQueue;
     /**
@@ -30,7 +30,7 @@ class Validation
 
     public function __construct()
     {
-        $this->vQueue = new \SplStack();
+        $this->vQueue = [];
         $this->vMessageBox = new MessageBox();
     }
 
@@ -47,13 +47,13 @@ class Validation
         if (!is_string($fields) && !is_array($fields)) {
             throw new LoveException('field参数应该为字符串或者数组');
         }
-        $this->vQueue->push([$fields, deep_copy($validator)]);
+        array_push($this->vQueue, [$fields, deep_copy($validator)]);
     }
 
     public function validate($data)
     {
         $this->vData = $data;
-        foreach ($this->vQueue as $item) {
+        foreach ($this->vQueue as $key=>$item) {
             /**
              * @var $validator Validator
              */

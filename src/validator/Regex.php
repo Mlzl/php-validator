@@ -28,7 +28,7 @@ class Regex extends Validator
         }
         if ($result === 0) {
             $validation->appendMessage(
-                new JaniceMessage($this->getMessage($field), $this->getCode())
+                new JaniceMessage($this->getCode(), $this->getMessage($field))
             );
             return false;
         }

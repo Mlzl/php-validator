@@ -92,3 +92,6 @@
 ## to do list
 * 添加验证器初始化函数
 * 正则表达式添加常用正则表达式
+
+#测试
+ls tests/|awk '{print $0}'|xargs -I{} ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/{}

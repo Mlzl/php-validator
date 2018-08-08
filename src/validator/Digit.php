@@ -12,7 +12,7 @@ use Janice\Validation;
 
 class Digit extends Validator
 {
-    protected $defaultMessage = ':field 不是数值型';
+    protected $defaultMessage = ':field 不是数字';
 
     public function validator(Validation $validation, $field)
     {

@@ -29,6 +29,7 @@ class Between extends Validator
         if (!is_numeric($max)) {
             throw new LoveException('max选项必须为数字');
         }
+        $this->defaultMessage = ":field 不在限定的区域内[{$min}~{$max}]";
         if (!is_numeric($value) || $value < $min || $value > $max) {
             $message = $this->getMessage($field);
             $code = $this->getCode();
