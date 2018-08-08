@@ -51,11 +51,11 @@
 *StringLength
 >字符串长度判定
 >特殊选项：[下面所示]
->>    * min [int]
+>>    * min [int][默认为0]
 >>> 最小值【数值】
 >>    * messageMin [string]
 >>> 不满足最小值时的提示语
->>    * max [int]
+>>    * max [int][默认为无上限]
 >>> 最大值
 >>    * messageMax [string]
 >>> 不满足最大值时的提示语

@@ -19,31 +19,38 @@ class StringLength extends Validator
         if ($this->isAllowEmpty() && ($value === '' || $value === null)) {
             return true;
         }
-        $min = $this->getOption('min');
-        if ($min === null || !is_integer($min) || $min < 0) {
-            throw new LoveException('请填写min参数，并且是正整数!');
+        $min = $this->getOption('min', 0);
+        if (!is_integer($min) || $min < 0) {
+            throw new LoveException('请min参数必须为正整数!');
         }
-        $max = $this->getOption('max');
-        if ($max !== null && (!is_integer($max) || $max < $min)) {
-            throw new LoveException('max参数必须为正整数，并且大于min参数值');
-        }
-
-        $messageMax = $this->getOption('messageMax');
-        $messageMin = $this->getOption('messageMin');
-        !$messageMax || !is_string($messageMax) && $messageMax = ":field 最大长度为{$max}";
-        !$messageMin || !is_string($messageMin) && $messageMin = ":field 最小长度为{$min}";
-        $messageMax = str_replace(':field', $field, $messageMax);
-        $messageMin = str_replace(':field', $field, $messageMin);
         $valueStr = mb_strlen($value);
         $success = true;
+
+
+        $messageMin = $this->getOption('messageMin');
+        $messageMin = str_replace(':field', $field, $messageMin);
+        !$messageMin || !is_string($messageMin) && $messageMin = ":field 最小长度为{$min}";
+
         if ($valueStr < $min) {
             $validation->appendMessage(new JaniceMessage($this->getCode(), $messageMin));
             $success = false;
         }
-        if ($max !== null && $valueStr > $max) {
-            $validation->appendMessage(new JaniceMessage($this->getCode(), $messageMax));
-            $success = false;
+
+        $max = $this->getOption('max');
+        if($max!==null){
+            if(!is_integer($max) || $max < $min){
+                throw new LoveException('请填写max参数，必须为正整数，并且大于min参数值或大于0');
+            }
+            $messageMax = $this->getOption('messageMax');
+            !$messageMax || !is_string($messageMax) && $messageMax = ":field 最大长度为{$max}";
+            $messageMax = str_replace(':field', $field, $messageMax);
+
+            if ($valueStr > $max) {
+                $validation->appendMessage(new JaniceMessage($this->getCode(), $messageMax));
+                $success = false;
+            }
         }
+
         return $success;
     }
 }
