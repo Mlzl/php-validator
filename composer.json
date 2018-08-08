@@ -17,10 +17,7 @@
             "Janice\\": "src/"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/Mlzl/validator"
-        }
-    ]
+    "require":{
+        "myclabs/deep-copy":"~1.3"
+    }
 }
