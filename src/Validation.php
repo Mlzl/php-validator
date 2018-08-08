@@ -47,7 +47,7 @@ class Validation
         if (!is_string($fields) && !is_array($fields)) {
             throw new LoveException('the field type must string or array');
         }
-        $this->vQueue->unshift([$fields, deep_copy($validator)]);
+        $this->vQueue->push([$fields, deep_copy($validator)]);
     }
 
     public function validate($data)
