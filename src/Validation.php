@@ -45,7 +45,7 @@ class Validation
             throw new LoveException('the validator must extends Validation');
         }
         if (!is_string($fields) && !is_array($fields)) {
-            throw new LoveException('the field type must string or array');
+            throw new LoveException('field参数应该为字符串或者数组');
         }
         $this->vQueue->push([$fields, deep_copy($validator)]);
     }

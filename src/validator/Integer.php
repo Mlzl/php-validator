@@ -13,7 +13,7 @@ use Janice\Validation;
 
 class Integer extends Validator
 {
-    protected $defaultMessage = ':field must be integer';
+    protected $defaultMessage = ':field 必须是整数';
 
     public function validator(Validation $validation, $field)
     {

@@ -13,7 +13,7 @@ use Janice\Validation;
  */
 class NotEmpty extends Validator
 {
-    protected $defaultMessage = ':field is not exists';
+    protected $defaultMessage = ':field 不存在';
 
     /**
      * @param Validation $validation

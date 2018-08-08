@@ -7,13 +7,12 @@
 
 namespace Janice\Validator;
 
-
 use Janice\Library\JaniceMessage;
 use Janice\Validation;
 
 class Digit extends Validator
 {
-    protected $defaultMessage = ':field must be digital';
+    protected $defaultMessage = ':field 不是数值型';
 
     public function validator(Validation $validation, $field)
     {

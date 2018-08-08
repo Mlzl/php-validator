@@ -18,7 +18,7 @@ abstract class Validator
     protected $options = [];
 
     protected $defaultCode = 520;
-    protected $defaultMessage = ':field Unknown Error!';
+    protected $defaultMessage = ':field 未知错误!';
 
     public function __construct(array $options)
     {
@@ -43,7 +43,7 @@ abstract class Validator
     {
         $message = isset($this->options['message']) ? $this->options['message'] : $this->defaultMessage;
         if (!is_string($message)) {
-            throw new LoveException('the type of message in options must be string');
+            throw new LoveException('message必须是字符串类型');
         }
         return str_replace(':field', $field, $message);
     }

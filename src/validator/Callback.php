@@ -13,6 +13,8 @@ use Janice\Validation;
 
 class Callback extends Validator
 {
+    protected $defaultMessage = ':field 不满足回调函数规则';
+
     public function validator(Validation $validation, $field)
     {
         $callback = $this->getOption('callback');
