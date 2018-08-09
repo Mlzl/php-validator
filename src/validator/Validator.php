@@ -41,7 +41,13 @@ abstract class Validator
      */
     public function getMessage($field)
     {
-        $message = isset($this->options['message']) ? $this->options['message'] : $this->defaultMessage;
+        if (isset($this->options['message'])) {
+            $message = $this->options['message'];
+        } elseif (isset($this->options["{$field}Message"])) {
+            $message = $this->options["{$field}Message"];
+        } else {
+            $message = $this->defaultMessage;
+        }
         if (!is_string($message)) {
             throw new LoveException('message必须是字符串类型');
         }

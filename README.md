@@ -89,6 +89,9 @@
 >   * code [*]
 >> 失败码
 
+>   * {field}Message [*]
+>> 对应的field的提示语，优先级是  message > {field}Message > defaultMessage
+
 ## to do list
 * 添加验证器初始化函数
 * 正则表达式添加常用正则表达式

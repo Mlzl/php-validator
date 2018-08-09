@@ -20,7 +20,9 @@ $data = [
 $validation = new \Janice\Validation();
 
 $validation->add(array_keys($data), new \Janice\Validator\NotEmpty(
-    []
+    [
+        'wifeMessage'=>'wife不能为空'
+    ]
 ));
 
 $validation->add('sex', new \Janice\Validator\InclusionIn([
