@@ -24,7 +24,7 @@ class NotEmpty extends Validator
     public function validator(Validation $validation, $field)
     {
         $value = $validation->getValue($field);
-        if ($value !== null && $value !== '') {
+        if ($value !== null && $value !== '' && $value !== [] && $value !==0) {
             return true;
         }
 

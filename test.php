@@ -21,7 +21,10 @@ $validation = new \Janice\Validation();
 
 $validation->add(array_keys($data), new \Janice\Validator\NotEmpty(
     [
-        'wifeMessage'=>'wife不能为空'
+        'nameMessage'=>'名字不能为空',
+        'deptMessage'=>'部门不能为空',
+        'groupMessage'=>'部门组不能为空',
+        'userMessage'=>'用户不能为空',
     ]
 ));
 
