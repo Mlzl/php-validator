@@ -53,7 +53,8 @@ class Validation
     public function validate($data)
     {
         $this->vData = $data;
-        foreach ($this->vQueue as $key=>$item) {
+        $endForEach = false;
+        foreach ($this->vQueue as $key => $item) {
             /**
              * @var $validator Validator
              */
@@ -65,9 +66,13 @@ class Validation
                 $success = $validator->validator($this, $field);
                 if (!$success) {
                     if ($validator->isFinish()) {//停止检测
+                        $endForEach = true;
                         break;
                     }
                 }
+            }
+            if ($endForEach) {
+                break;
             }
         }
     }
