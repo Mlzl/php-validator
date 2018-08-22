@@ -75,6 +75,8 @@ class Validation
                 break;
             }
         }
+        //验证完之后清空验证规则
+        $this->vQueue = [];
     }
 
     public function getValue($field)

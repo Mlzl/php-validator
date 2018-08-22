@@ -21,7 +21,7 @@ class StringLength extends Validator
         }
         $min = $this->getOption('min', 0);
         if (!is_integer($min) || $min < 0) {
-            throw new LoveException('请min参数必须为正整数!');
+            throw new LoveException('min参数必须为正整数!');
         }
         $valueStr = mb_strlen($value);
         $success = true;
