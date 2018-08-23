@@ -16,6 +16,7 @@ $data = [
     'introduce' => 's',
     'height'=>180,
     'wife'=>null,
+    '0'=>['0'=>['haha'=>'s']]
 ];
 $validation = new \Janice\Validation();
 
@@ -62,6 +63,7 @@ $validation->add('introduce', new \Janice\Validator\StringLength(
         'max' => 50,
     ]
 ));
+$validation->add('0.0.haha', new \Janice\Validator\Digit([]));
 
 $validation->validate($data);
 foreach ($validation->getMessages() as $message) {

@@ -81,8 +81,20 @@ class Validation
 
     public function getValue($field)
     {
-        return isset($this->vData[$field]) ? $this->vData[$field] : null;
+        $keys = explode('.', $field);
+        $data = $this->vData;
+        $value = null;
+        foreach ($keys as $key){
+            if(isset($data[$key])){
+                $value = $data[$key];
+                $data = $data[$key];
+            }else{
+                break;
+            }
+        }
+        return $value;
     }
+
 
     /**
      * @return MessageBox

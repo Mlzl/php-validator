@@ -92,6 +92,11 @@
 >   * {field}Message [*]
 >> 对应的field的提示语，优先级是  message > {field}Message > defaultMessage
 
+
+## 支持多维数组验证
+* $arr1 = ['address'=>['province']];// address.province
+* $arr2 = [0=>['province'];// 0.province
+* $arr3 = ['address'=>['0'=>['province']];//address.0.province
 ## to do list
 * 添加验证器初始化函数
 * 正则表达式添加常用正则表达式
