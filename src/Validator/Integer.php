@@ -21,7 +21,7 @@ class Integer extends Validator
         if ($this->isAllowEmpty() && ($value === '' || $value === null)) {
             return true;
         }
-        if (is_integer($value)) {
+        if (is_numeric($value) && intval($value) == $value) {
             return true;
         }
         $code = $this->getCode();
